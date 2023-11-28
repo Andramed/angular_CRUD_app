@@ -39,4 +39,18 @@ export class EmployeeService {
 	;
 	return response
   }
+
+  deleteEmploye(id: number): Observable<HttpResponse<Employe>>{
+		const response = this._http.delete<Employe>(`${this.URL}employee/${id}`, {
+			observe: 'response'
+		})
+		.pipe(
+			catchError(error => {
+				throw ({
+					error,
+				})
+			})
+		)
+		return response
+  }
 }

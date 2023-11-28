@@ -14,7 +14,7 @@ import { Employe } from './interface/Employee';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email'];
+	displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'action'];
 	dataSource!: MatTableDataSource<Employe>;
   
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -62,6 +62,23 @@ export class AppComponent implements OnInit {
 			}
 		)
 	}
+
+	deleteUser(id: number) {
+		console.log(`delete user with id: ${id}`);
+		
+		this.empService.deleteEmploye(id)
+			.subscribe({
+				next: (res) => {
+					console.log(res);
+					this.getAllRegistredEmp();
+				},
+				error: (err) => {
+					console.log(err);
+					
+				}
+			})
+	}
+
 
   
 }
