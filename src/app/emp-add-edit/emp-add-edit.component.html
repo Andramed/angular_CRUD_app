@@ -1,0 +1,32 @@
+<section class="dialogSection">
+	Dialog Section:
+	<div mat-dialog></div>
+	<form  [formGroup]="empForm">
+		<div mat-dialog-content class="content">
+			<div class="row">
+				<mat-form-field appearance="outline">
+					<mat-label>First Name</mat-label>
+					<input formControlName="firstName" matInput placeholder="Ex: John" type="text">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>Last Name</mat-label>
+					<input formControlName="lastName" matInput placeholder="Ex: Doe" type="text">
+				</mat-form-field>				
+			</div>
+			<div class="row">
+				<mat-form-field appearance="outline">
+					<mat-label>Email</mat-label>
+					<input formControlName="email" matInput placeholder="Ex: example@mail.com" type="email">
+				</mat-form-field>
+				
+			</div>
+		</div>
+
+		<div mat-dialog-actions class="action">
+			<button   mat-raised-button>Cancel</button>
+			<!-- Exemplu pentru butonul Submit -->
+			<button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+
+		</div>
+	</form>
+</section>
