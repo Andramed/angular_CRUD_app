@@ -43,7 +43,7 @@
 		  <ng-container matColumnDef="action">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
 			<td class="actions" mat-cell *matCellDef="let row"> 
-				<button  mat-icon-button>
+				<button (click)="openEditEmpForm(row)"  mat-icon-button>
 					<mat-icon color="primary">edit</mat-icon>
 				</button>
 				<button type="button" (click)="deleteUser(row.id)" mat-icon-button>

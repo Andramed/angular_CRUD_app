@@ -1,6 +1,6 @@
 import { Component, OnInit,  ViewChild} from '@angular/core';
 import { AppModule } from './app.module';
-import { MatDialog } from '@angular/material/dialog';
+import {  MatDialog } from '@angular/material/dialog';
 import { EmpAddEditComponent } from './emp-add-edit/emp-add-edit.component';
 import { EmployeeService } from './services/employee.service';
 
@@ -10,6 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { Employe } from './interface/Employee';
 import { AppService } from './app.service';
 import { firstValueFrom } from 'rxjs';
+import { EditEmp } from './interface/EditEmpData';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 	constructor(
 		private _dialog: MatDialog,
 		private empService: EmployeeService,
-		private appService: AppService
+		private appService: AppService,
 	){};
 
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,6 +43,13 @@ export class AppComponent implements OnInit {
 		this._dialog.open(EmpAddEditComponent);
 	}
 
+	openEditEmpForm(data: EditEmp){
+		this._dialog.open(EmpAddEditComponent, {
+			data,
+
+		});
+	}
+
 	applyFilter(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value;
 		this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -60,7 +68,8 @@ export class AppComponent implements OnInit {
 				},
 				error: (err) => {
 					console.log(err);	
-				}
+				}, 
+				
 			});
 	} 
 }

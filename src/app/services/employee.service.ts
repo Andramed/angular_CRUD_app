@@ -3,6 +3,7 @@ import {HttpClient, HttpEvent, HttpResponse} from "@angular/common/http"
 import { Employe } from '../interface/Employee';
 import { Observable, catchError, of } from 'rxjs';
 import { ServerResponse } from '../interface/ServerResponse';
+import { EditEmp } from '../interface/EditEmpData';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,5 +53,24 @@ export class EmployeeService {
 			})
 		)
 		return response
+  }
+
+  editEmployee(id: number, data: EditEmp) : Observable<HttpResponse<Employe>> {
+	console.log({
+		data,
+		id
+	});
+	
+	const response = this._http.patch<Employe>(`${this.URL}employee/${id}`, data,  {
+		observe: 'response'
+	})
+		.pipe(
+			catchError(error => {
+				throw ({
+					error,
+				})
+			})
+		)
+	return response
   }
 }

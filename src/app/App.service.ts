@@ -18,9 +18,7 @@ export class AppService {
 
   
 
-	getListEmp() {
-		console.log(this.dataSubject);
-		
+	getListEmp() {		
 		this.empSerive.getEmployee().subscribe(
 			res => {
 				const source = res.body;
@@ -28,9 +26,7 @@ export class AppService {
 					this.dataSubject.next(source)
 				}
 			}
-		)
-			console.log(this.dataSubject);
-			
+		)			
 	}
 	
 }

@@ -23,9 +23,9 @@
 		</div>
 
 		<div mat-dialog-actions class="action">
-			<button   mat-raised-button>Cancel</button>
+			<button type="button"  mat-dialog-close="false"  mat-raised-button>Cancel</button>
 			<!-- Exemplu pentru butonul Submit -->
-			<button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+			<button type="submit" mat-raised-button color="primary" (click)="switcherSaveOrUpdate()">{{data ? 'Update' : 'Save'}}</button>
 
 		</div>
 	</form>
