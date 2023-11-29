@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { DialogRef } from '@angular/cdk/dialog';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -15,7 +16,8 @@ export class EmpAddEditComponent {
 	constructor(
 			private _formBuilder: FormBuilder,
 			private _empService: EmployeeService,
-			private _dialogRef: DialogRef<EmpAddEditComponent> 
+			private _dialogRef: DialogRef<EmpAddEditComponent>, 
+			private _appService: AppService
 		){
 		this.empForm = this._formBuilder.group({
 			firstName: '',
@@ -41,7 +43,9 @@ export class EmpAddEditComponent {
 							allResponse: res 
 						}
 					);
+					this._appService.getListEmp();
 					this._dialogRef.close();
+					
 				},
 				error: (err: any) => {
 					console.log('eroare');
