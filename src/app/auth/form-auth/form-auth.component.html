@@ -1,0 +1,18 @@
+<section class="auth-form">
+	<h3>Sign In</h3>
+	<form [formGroup]="signInForm">
+		<mat-form-field appearance="outline">
+			<mat-label>Email</mat-label>
+			<input formControlName="email" matInput type="email" placeholder="examplae@email.com">
+		</mat-form-field>
+		<mat-form-field appearance="outline">
+			<mat-label>Password</mat-label>
+			<input matInput type="password" formControlName="password">
+		</mat-form-field>
+	</form>
+	<div mat-dialog-actions class="actions">
+		<button type="button"  mat-dialog-close="false"  mat-raised-button>Cancel</button>
+		<button (click)="signIn()" type="submit" mat-raised-button color="primary" >Sign In</button>
+	</div>
+
+</section>

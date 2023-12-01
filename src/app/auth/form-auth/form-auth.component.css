@@ -1,0 +1,13 @@
+.auth-form{
+	width: 30rem;
+	padding: 3rem;
+}
+
+button{
+	flex: 1;
+}
+
+form{
+	display: flex;
+	flex-direction: column;
+}
