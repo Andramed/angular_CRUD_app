@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { DialogRef } from '@angular/cdk/dialog';
-import { AppService } from '../app.service';
+import { AppService } from '../App.service'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditEmp } from '../interface/EditEmpData';
 

@@ -18,11 +18,15 @@ import { HttpClientModule } from "@angular/common/http";
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from '@angular/material/sort';
 import { MatPaginatorModule} from '@angular/material/paginator';
+import { AuthComponent } from './auth/auth.component';
+import { FormAuthComponent } from './auth/form-auth/form-auth.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		EmpAddEditComponent
+		EmpAddEditComponent,
+		AuthComponent,
+		FormAuthComponent
 	],
 	imports: [
 		BrowserModule,

@@ -8,7 +8,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Employe } from './interface/Employee';
-import { AppService } from './app.service';
+import { AppService } from './App.service';
 import { firstValueFrom } from 'rxjs';
 import { EditEmp } from './interface/EditEmpData';
 @Component({

@@ -13,8 +13,6 @@ export class EmployeeService {
   constructor(private _http: HttpClient) { }
 
  addEmploye(data: Employe) :Observable<HttpResponse<ServerResponse>> {
-		console.log('ce se intimpla in add Employee');
-		
 		return  this._http.post<HttpResponse<ServerResponse>>('http://localhost:3000/employee', data, {
 			observe: 'response'
 		}).pipe(
