@@ -9,34 +9,80 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Employe } from './interface/Employee';
 import { AppService } from './App.service';
-import { firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom, map, tap } from 'rxjs';
 import { EditEmp } from './interface/EditEmpData';
+import { AuthState } from './interface/AuthState';
+import { User } from './interface/User';
+import { Select, Store } from '@ngxs/store';
+import { UserSelector } from './services/storeNgxs/selectors/authenticatedUser.selector';
+import { GuardService } from './services/guard.service';
+import { FormAuthComponent } from './auth/form-auth/form-auth.component';
+import { JWTServiceService } from './services/jwtservice.service';
+import { LocalStoarageService } from './services/local-stoarage.service';
+import { SaveDecodedJWT } from './services/storeNgxs/actions/saveDecodedToken.actions';
+import { JWTSelector } from './services/storeNgxs/selectors/jwt.selector';
+import { DecodedTokenInerface } from './interface/DecodedToken';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	
-	constructor(
-		private _dialog: MatDialog,
-		private empService: EmployeeService,
-		private appService: AppService,
-	){};
-
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
 	@ViewChild(MatSort) sort!: MatSort;
 	displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'action'];
 	dataSource!: MatTableDataSource<Employe>;
+	logedUser$!: Observable<AuthState>
+	user!: string | undefined
+	isAuthorized!: boolean
+	userRole!: string | undefined
+	managerId!: number | undefined
+
+	constructor(
+		private _dialog: MatDialog,
+		private empService: EmployeeService,
+		private appService: AppService,
+		private store: Store,
+		private guard: GuardService,
+		private jwtService: JWTServiceService,
+		private localStorage: LocalStoarageService
 	
-	ngOnInit(){
-		console.log('se initializeaza');
-		this.appService.getListEmp();
-		this.appService.dataSubject.subscribe( data => {
-			this.dataSource = new MatTableDataSource<Employe>(data);
-			this.dataSource.sort = this.sort;
-			this.dataSource.paginator = this.paginator;
+	){
+		this.logedUser$ = store.select('auth')
+	};
+
+	@Select(UserSelector.userLoged) userLogedNgxs$!: Observable<DecodedTokenInerface>
+	
+	
+	ngOnInit(){	
+		
+		this.guard.guard().subscribe({
+			next: (value) => {
+				this.isAuthorized = value
+				if (!value) {
+					console.log(value);
+					this.appService.dataSubject.subscribe( data => {
+					this.dataSource = new MatTableDataSource<Employe>(data);
+					this.dataSource.sort = this.sort;
+					this.dataSource.paginator = this.paginator;
 		})
+				} else {
+					this._dialog.open(FormAuthComponent);
+				}
+				
+			}
+		})
+		this.userLogedNgxs$.subscribe({
+			next: (user) => {
+				console.log('user: ', user);
+				this.userRole = user.role;
+				this.user = user.email;
+				this.managerId = user.sub
+				this.appService.getListEmp(user.sub);
+			}
+		})
+
 	}
 
 	openAddEditEmpForm() {
@@ -59,17 +105,23 @@ export class AppComponent implements OnInit {
 	}
 
 	deleteUser(id: number) {
-		console.log(`delete user with id: ${id}`);
 		this.empService.deleteEmploye(id)
 			.subscribe({
 				next: (res) => {
 					console.log(res);
-					this.appService.getListEmp();
+					this.appService.getListEmp(this.managerId);
 				},
 				error: (err) => {
 					console.log(err);	
 				}, 
-				
 			});
 	} 
+
+	logout(){
+		console.log('logout');
+		this.localStorage.remov('accesToken')
+		this.isAuthorized  = true
+		this.user = undefined
+		this._dialog.open(FormAuthComponent)
+	}
 }

@@ -3,14 +3,18 @@
 	<span>My  angular CRUD APP</span>
 	<span class="example-spacer"></span>
 	<div class="btn-container">
-		<auth></auth>
-		<button mat-raised-button (click)="openAddEditEmpForm()" >
+		
+		<button *ngIf="!isAuthorized" mat-raised-button (click)="openAddEditEmpForm()" >
 			Add Employee
+		</button>
+		
+		<button type="button" (click)="logout()" *ngIf="user"   mat-raised-button>
+			{{user}}
 		</button>
 	</div>
   </mat-toolbar>
 
-<div class="container-list">
+<div *ngIf="!isAuthorized" class="container-list">
 	<mat-form-field>
 		<mat-label>Filter</mat-label>
 		<input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>

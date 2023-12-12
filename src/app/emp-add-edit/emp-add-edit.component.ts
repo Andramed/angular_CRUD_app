@@ -5,6 +5,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { AppService } from '../App.service'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditEmp } from '../interface/EditEmpData';
+import { Select } from '@ngxs/store';
+import { UserSelector } from '../services/storeNgxs/selectors/authenticatedUser.selector';
+import { Observable } from 'rxjs';
+import { DecodedState } from '../services/storeNgxs/states/user.state';
+import { DecodedTokenInerface } from '../interface/DecodedToken';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -14,13 +19,16 @@ import { EditEmp } from '../interface/EditEmpData';
 export class EmpAddEditComponent implements OnInit {
 
 	empForm!: FormGroup;
-
+	managerId!: number | undefined;
+	managerEmail: string | undefined
+	
 	constructor(
 			private _formBuilder: FormBuilder,
 			private _empService: EmployeeService,
 			private _dialogRef: DialogRef<EmpAddEditComponent>, 
 			private _appService: AppService,
-			@Inject(MAT_DIALOG_DATA) public data: EditEmp
+			@Inject(MAT_DIALOG_DATA) public data: EditEmp,
+
 
 		){
 		this.empForm = this._formBuilder.group({
@@ -30,7 +38,15 @@ export class EmpAddEditComponent implements OnInit {
 			
 		})
 	}
+
+	@Select(UserSelector.userLoged) ManagerId$!: Observable<DecodedTokenInerface>
+
+
 	ngOnInit(): void {
+		this.ManagerId$.subscribe(user => {
+			this.managerId = user.sub;
+			this.managerEmail = user.email
+		}) 
 		this.empForm.patchValue(this.data);
 	}
 
@@ -40,11 +56,21 @@ export class EmpAddEditComponent implements OnInit {
 		
 	}
 
+
 	saveNewEmp() {
 		if (this.empForm.valid) {
 			console.log('forma valid');
-			
-			this._empService.addEmploye(this.empForm.value).subscribe({
+			const {firstName, lastName, email} = this.empForm.value
+	
+			this._empService.addEmploye(
+				{
+					firstName: firstName,
+					lastName: lastName,
+					email: email,
+					managerId: this.managerId, 
+					emailManager: this.managerEmail
+				}
+				).subscribe({
 				next: (res) =>{
 					console.log('vine raspuns');
 					
@@ -56,7 +82,7 @@ export class EmpAddEditComponent implements OnInit {
 							allResponse: res 
 						}
 					);
-					this._appService.getListEmp();
+					this._appService.getListEmp(this.managerId);
 					this._dialogRef.close();
 					
 				},
@@ -81,7 +107,7 @@ export class EmpAddEditComponent implements OnInit {
 					statusText: res.statusText,
 					allResponse: res 
 				});
-				this._appService.getListEmp();
+				this._appService.getListEmp(this.managerId);
 				this._dialogRef.close();
 			}, 
 			error: (err) => {

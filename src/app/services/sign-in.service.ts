@@ -15,7 +15,7 @@ URL:string = 'http://localhost:3000/'
 
   signIn(data: SignIn): Observable<HttpResponse<any>> {
 	console.log(data);
-	const response = this.http.post(`${this.URL}auth`, 
+	const response = this.http.post(`${this.URL}signin`, 
 		{
 			data: data
 		},

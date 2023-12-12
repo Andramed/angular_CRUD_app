@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpEvent, HttpResponse} from "@angular/common/http"
+import {HttpClient, HttpEvent, HttpParams, HttpResponse} from "@angular/common/http"
 import { Employe } from '../interface/Employee';
 import { Observable, catchError, of } from 'rxjs';
 import { ServerResponse } from '../interface/ServerResponse';
@@ -25,19 +25,29 @@ export class EmployeeService {
 		);	
   } 
 
-  getEmployee(): Observable<HttpResponse<Employe[]>> {
-	const response = this._http.get<Employe[]>('http://localhost:3000/employee', 
-	{observe:'response'})
-	.pipe(
-		catchError(error => {
-			throw({
-				error,
+  getEmployee(managerId:number | undefined): Observable<HttpResponse<Employe[]>> {
+	if (!managerId ) {
+		throw new Error("User not logedd we can obtaine list of EMP");
+		
+	}
+	let queryParam = managerId ? new HttpParams().set('managerId', managerId.toString()) : undefined;
+
+	const response = this._http.get<Employe[]>(`http://localhost:3000/employee`, 
+			{
+			observe:'response',
+			params: queryParam
 			})
-		})
-	)
+			.pipe(
+			catchError(error => {
+				throw({
+				error,
+				})
+			})
+			)
 	;
 	return response
   }
+  
 
   deleteEmploye(id: number): Observable<HttpResponse<Employe>>{
 		const response = this._http.delete<Employe>(`${this.URL}employee/${id}`, {

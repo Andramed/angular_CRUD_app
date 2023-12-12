@@ -11,3 +11,22 @@ form{
 	display: flex;
 	flex-direction: column;
 }
+
+.container-header {
+	display: flex;
+	margin-bottom: 0.4rem;
+	padding: 1rem;
+	align-items: center;
+}
+
+
+
+.btn-create-new-acc{
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	width: fit-content;
+	height: fit-content;
+	font-size: 14px;
+}
