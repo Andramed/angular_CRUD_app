@@ -3,4 +3,7 @@ export interface Employe {
 	lastName: string,
 	email: string,
 	
+
+	managerId: number|undefined, 
+	emailManager: string | undefined
 }
