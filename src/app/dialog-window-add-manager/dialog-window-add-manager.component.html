@@ -1,1 +1,33 @@
-<p>dialog-window-add-manager works!</p>
+<div class="container-add-manager">
+	<h3>Add new manager</h3>
+	<form class="add-manager-form"  (ngSubmit)="onSubmit()" [formGroup]="managerForm" >
+		<div class="content">
+			<div class="row">
+				<mat-form-field appearance="outline">
+					<mat-label>First Name</mat-label>
+					<input formControlName="firstName" matInput placeholder="Ex: John" type="text">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>Last Name</mat-label>
+					<input formControlName="lastName" matInput placeholder="Ex: Doe" type="text">
+				</mat-form-field>				
+			</div>
+			<div class="row">
+				<mat-form-field appearance="outline">
+					<mat-label>Email</mat-label>
+					<input formControlName="email" matInput placeholder="Ex: example@mail.com" type="email">
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>Password</mat-label>
+					<input formControlName="password" matInput  type="password">
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="actions">
+			<button type="button"  mat-dialog-close="false"  mat-raised-button>Cancel</button>
+			<button  type="submit" mat-raised-button color="primary" >
+				Add new manager
+			</button>
+			</div>
+	</form>
+</div>

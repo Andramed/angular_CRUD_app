@@ -25,28 +25,35 @@ export class EmployeeService {
 		);	
   } 
 
-  getEmployee(managerId:number | undefined): Observable<HttpResponse<Employe[]>> {
+  getEmployee(managerId: number| undefined, managerRole:string | undefined ): Observable<HttpResponse<Employe[]>> {
 	if (!managerId ) {
-		throw new Error("User not logedd we can obtaine list of EMP");
-		
+	  throw new Error("User not logged in. We can't obtain the list of employees.");
 	}
-	let queryParam = managerId ? new HttpParams().set('managerId', managerId.toString()) : undefined;
-
+	
+	let queryParam = new HttpParams();
+	if (managerId) {
+	  queryParam = queryParam.set('managerId', managerId.toString());
+	}
+	if (managerRole) {
+	  queryParam = queryParam.set('managerRole', managerRole);
+	}
+  
 	const response = this._http.get<Employe[]>(`http://localhost:3000/employee`, 
-			{
-			observe:'response',
-			params: queryParam
-			})
-			.pipe(
-			catchError(error => {
-				throw({
-				error,
-				})
-			})
-			)
+	  {
+		observe:'response',
+		params: queryParam
+	  })
+	  .pipe(
+		catchError(error => {
+		  throw({
+			error,
+		  })
+		})
+	  )
 	;
-	return response
+	return response;
   }
+  
   
 
   deleteEmploye(id: number): Observable<HttpResponse<Employe>>{

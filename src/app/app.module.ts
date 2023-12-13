@@ -23,7 +23,7 @@ import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dia
 		EmpAddEditComponent,
 		AuthComponent,
 		FormAuthComponent,
-  DialogWindowAddManagerComponent
+  		DialogWindowAddManagerComponent
 	],
 	imports: [
 		BrowserModule,

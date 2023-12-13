@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DialogRef } from '@angular/cdk/dialog';
 import { SignInService } from 'src/app/services/sign-in.service';
 import { Store } from '@ngxs/store';
-import { SignUpService } from 'src/app/services/sign-up.service';
+
 import { saveJWT } from '../../services/storeNgxs/actions/saveToken.action';
 
 import { JWTServiceService } from 'src/app/services/jwtservice.service';
@@ -22,7 +22,7 @@ export class FormAuthComponent {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _signInService: SignInService,
-		private _signUpService: SignUpService,
+	
 		private store: Store,
 		private _dialogRef: DialogRef<FormAuthComponent>,
 		private jwtService: JWTServiceService

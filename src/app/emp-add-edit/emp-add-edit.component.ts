@@ -20,7 +20,8 @@ export class EmpAddEditComponent implements OnInit {
 
 	empForm!: FormGroup;
 	managerId!: number | undefined;
-	managerEmail: string | undefined
+	managerEmail: string | undefined;
+	userRole: string | undefined
 	
 	constructor(
 			private _formBuilder: FormBuilder,
@@ -45,7 +46,8 @@ export class EmpAddEditComponent implements OnInit {
 	ngOnInit(): void {
 		this.ManagerId$.subscribe(user => {
 			this.managerId = user.sub;
-			this.managerEmail = user.email
+			this.managerEmail = user.email;
+			this.userRole = user.role
 		}) 
 		this.empForm.patchValue(this.data);
 	}
@@ -82,7 +84,7 @@ export class EmpAddEditComponent implements OnInit {
 							allResponse: res 
 						}
 					);
-					this._appService.getListEmp(this.managerId);
+					this._appService.getListEmp(this.managerId, this.userRole);
 					this._dialogRef.close();
 					
 				},
@@ -107,7 +109,7 @@ export class EmpAddEditComponent implements OnInit {
 					statusText: res.statusText,
 					allResponse: res 
 				});
-				this._appService.getListEmp(this.managerId);
+				this._appService.getListEmp(this.managerId, this.userRole);
 				this._dialogRef.close();
 			}, 
 			error: (err) => {

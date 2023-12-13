@@ -18,8 +18,8 @@ export class AppService {
 
   
 
-	getListEmp(managerId: number | undefined) {		
-		this.empSerive.getEmployee(managerId).subscribe(
+	getListEmp(managerId: number| undefined, managerRole:string | undefined){
+		this.empSerive.getEmployee( managerId, managerRole ).subscribe(
 			res => {
 				const source = res.body;
 				if (source) {

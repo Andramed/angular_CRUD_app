@@ -1,0 +1,33 @@
+.container-add-manager{
+	padding: 3rem;
+	
+}
+
+.add-manager-form {
+	display: flex;
+	flex-direction: column;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+}
+
+.row {
+	display: flex;
+	flex-direction: column;
+}
+
+mat-form-field {
+	width: 100%;
+}
+.actions {
+	display: flex;
+	gap: 0.5rem;
+	padding: 1rem;
+
+}
+
+button{
+	flex: 1;
+}

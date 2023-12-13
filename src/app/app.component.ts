@@ -22,6 +22,7 @@ import { LocalStoarageService } from './services/local-stoarage.service';
 import { SaveDecodedJWT } from './services/storeNgxs/actions/saveDecodedToken.actions';
 import { JWTSelector } from './services/storeNgxs/selectors/jwt.selector';
 import { DecodedTokenInerface } from './interface/DecodedToken';
+import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dialog-window-add-manager.component';
 
 @Component({
   selector: 'app-root',
@@ -79,10 +80,9 @@ export class AppComponent implements OnInit {
 				this.userRole = user.role;
 				this.user = user.email;
 				this.managerId = user.sub
-				this.appService.getListEmp(user.sub);
+				this.appService.getListEmp(user.sub, user.role);
 			}
 		})
-
 	}
 
 	openAddEditEmpForm() {
@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
 			.subscribe({
 				next: (res) => {
 					console.log(res);
-					this.appService.getListEmp(this.managerId);
+					this.appService.getListEmp(this.managerId, this.userRole);
 				},
 				error: (err) => {
 					console.log(err);	
@@ -119,36 +119,17 @@ export class AppComponent implements OnInit {
 
 	openAddManager() {
 		console.log('open new window add new manager');
-		
+		this._dialog.open(DialogWindowAddManagerComponent)
 	}
 
-	// addNewManager(credential: {email: password, }) {
-	// 	const {email, password} = this.signInForm.value;
-	// 		console.log(email, password);
-			
-	// 		this._signUpService.signUp({email, password})
-	// 			.subscribe({
-	// 				next: (res) => {
-	// 					if (res) {
-	// 						console.log(res.body);
-	// 						this.store.dispatch(new saveJWT(res.body.accesToken));
-	// 						this.jwtService.decodeToken()
-	// 						this._dialogRef.close();
-	// 					}
-	// 				},
-	// 				error(err) {
-	// 					throw ({
-	// 						err
-	// 					})
-	// 				},
-	// 			})
-	// }
+	
 
 	logout(){
 		console.log('logout');
-		this.localStorage.remov('accesToken')
+		this.localStorage.remov('myToken')
 		this.isAuthorized  = true
 		this.user = undefined
+		this.userRole = undefined
 		this._dialog.open(FormAuthComponent)
 	}
 }
