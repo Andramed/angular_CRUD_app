@@ -15,6 +15,7 @@ import { environment } from '../environments/environment.prod';
 import { DecodedState } from './services/storeNgxs/states/user.state';
 import { TokenState } from './services/storeNgxs/states/token.state';
 import { GuardService } from './services/guard.service';
+import { LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -33,6 +34,9 @@ import { GuardService } from './services/guard.service';
 			developmentMode: !environment.production
 		}),
 		NgxsReduxDevtoolsPluginModule.forRoot(),
+		NgxsStoragePluginModule.forRoot({
+			key: "myToken",
+		})
 		
 	],
 	exports: [FormsModule, ReactiveFormsModule],

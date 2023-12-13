@@ -37,7 +37,7 @@ export class JWTServiceService {
 				this.decodedToken = jwtDecode(token);
 				this.store.dispatch(new saveJWT(token))
 				this.store.dispatch(new SaveDecodedJWT(this.decodedToken));
-				this.localStorageService.set('accesToken', token);
+				// this.localStorageService.set('accesToken', token);
 				return this.decodedToken;
 			  } catch (error) {
 				console.error(error);
