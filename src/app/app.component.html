@@ -7,8 +7,10 @@
 		<button *ngIf="!isAuthorized" mat-raised-button (click)="openAddEditEmpForm()" >
 			Add Employee
 		</button>
-		
-		<button type="button" (click)="logout()" *ngIf="user"   mat-raised-button>
+		<button mat-raised-button type="button" (click)="openAddManager()" *ngIf="userRole==='admin'">
+			Add new Manager
+		</button>
+		<button mat-raised-button type="button" (click)="logout()" *ngIf="user"   mat-raised-button>
 			{{user}}
 		</button>
 	</div>

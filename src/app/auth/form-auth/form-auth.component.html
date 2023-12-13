@@ -1,13 +1,6 @@
 <section class="auth-form">
 	<div class="container-header">
-		
-		<button (click)="switcherSignInOrSignUp()" class="btn-create-new-acc">
-			{{
-				signUp ? 
-						'Have an acount Sign In' :
-						'Create a new acaunt Sign Up'
-			}}
-		</button>
+		<h3>Sign in in your acaunt</h3>
 	</div>
 	<form [formGroup]="signInForm">
 		<mat-form-field appearance="outline">
@@ -18,15 +11,12 @@
 			<mat-label>Password</mat-label>
 			<input matInput type="password" formControlName="password">
 		</mat-form-field>
-		<!-- <mat-form-field *ngIf="signUp" appearance="outline">
-			<mat-label>Password</mat-label>
-			<input matInput type="password" formControlName="password">
-		</mat-form-field> -->
+	
 	</form>
 	<div mat-dialog-actions class="actions">
 		<button type="button"  mat-dialog-close="false"  mat-raised-button>Cancel</button>
 		<button (click)="submitForm()" type="submit" mat-raised-button color="primary" >
-			{{signUp ? 'Sign Up' : 'Sign In'}}
+			Sign In
 		</button>
 	</div>
 

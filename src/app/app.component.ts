@@ -117,6 +117,33 @@ export class AppComponent implements OnInit {
 			});
 	} 
 
+	openAddManager() {
+		console.log('open new window add new manager');
+		
+	}
+
+	// addNewManager(credential: {email: password, }) {
+	// 	const {email, password} = this.signInForm.value;
+	// 		console.log(email, password);
+			
+	// 		this._signUpService.signUp({email, password})
+	// 			.subscribe({
+	// 				next: (res) => {
+	// 					if (res) {
+	// 						console.log(res.body);
+	// 						this.store.dispatch(new saveJWT(res.body.accesToken));
+	// 						this.jwtService.decodeToken()
+	// 						this._dialogRef.close();
+	// 					}
+	// 				},
+	// 				error(err) {
+	// 					throw ({
+	// 						err
+	// 					})
+	// 				},
+	// 			})
+	// }
+
 	logout(){
 		console.log('logout');
 		this.localStorage.remov('accesToken')

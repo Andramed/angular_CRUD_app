@@ -16,12 +16,14 @@ import { DecodedState } from './services/storeNgxs/states/user.state';
 import { TokenState } from './services/storeNgxs/states/token.state';
 import { GuardService } from './services/guard.service';
 import { LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dialog-window-add-manager.component';
 @NgModule({
 	declarations: [
 		AppComponent,
 		EmpAddEditComponent,
 		AuthComponent,
-		FormAuthComponent
+		FormAuthComponent,
+  DialogWindowAddManagerComponent
 	],
 	imports: [
 		BrowserModule,

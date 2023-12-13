@@ -38,29 +38,7 @@ export class FormAuthComponent {
 	}
 
 	submitForm() {
-		if (this.signUp) {
-			const {email, password} = this.signInForm.value;
-			console.log(email, password);
-			
-			this._signUpService.signUp({email, password})
-				.subscribe({
-					next: (res) => {
-						if (res) {
-							console.log(res.body);
-							this.store.dispatch(new saveJWT(res.body.accesToken));
-							this.jwtService.decodeToken()
-							this._dialogRef.close();
-						}
-						
-						
-					},
-					error(err) {
-						throw ({
-							err
-						})
-					},
-				})
-		} else {
+		
 			const {email, password} = this.signInForm.value;
 			console.log(email, password);
 			// to dispatch for saving new state of JWT obtained from the server
@@ -76,8 +54,12 @@ export class FormAuthComponent {
 					console.log(err);
 				},
 			})
-		}
+		
 
 		
 	}
 }
+
+
+
+
