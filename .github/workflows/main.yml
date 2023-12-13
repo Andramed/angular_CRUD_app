@@ -1,4 +1,4 @@
-name: publish docker image
+name: publish front docker image
 
 on:
   push:
