@@ -15,7 +15,7 @@ export class AddManagerService {
 	private http: HttpClient
   ) { }
 
-  URL:string = "environment.apiUrl"
+  URL:string = "http://localhost:3000/" 
 
   signUp(data: ManagerModel) : Observable<HttpResponse<any>> {
 		console.log(data);
