@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class EmployeeService {
-  URL: string = environment.apiUrl
+  URL: string = "http://172.20.0.4:3000"
 
   constructor(private _http: HttpClient) { }
 
