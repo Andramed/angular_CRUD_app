@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SignIn } from '../interface/SignData';
 import { Observable, catchError } from 'rxjs';
 import {ManagerModel} from '../interface/ManagerModel'
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AddManagerService {
 	private http: HttpClient
   ) { }
 
-  URL:string = 'http://localhost:3000/'
+  URL:string = environment.apiUrl
 
   signUp(data: ManagerModel) : Observable<HttpResponse<any>> {
 		console.log(data);

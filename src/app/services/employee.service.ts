@@ -4,16 +4,17 @@ import { Employe } from '../interface/Employee';
 import { Observable, catchError, of } from 'rxjs';
 import { ServerResponse } from '../interface/ServerResponse';
 import { EditEmp } from '../interface/EditEmpData';
+import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  URL: string = 'http://localhost:3000/';
+  URL: string = environment.apiUrl
 
   constructor(private _http: HttpClient) { }
 
  addEmploye(data: Employe) :Observable<HttpResponse<ServerResponse>> {
-		return  this._http.post<HttpResponse<ServerResponse>>('http://localhost:3000/employee', data, {
+		return  this._http.post<HttpResponse<ServerResponse>>(`${this.URL}//employee`, data, {
 			observe: 'response'
 		}).pipe(
 			catchError(error => {
@@ -38,7 +39,7 @@ export class EmployeeService {
 	  queryParam = queryParam.set('managerRole', managerRole);
 	}
   
-	const response = this._http.get<Employe[]>(`http://localhost:3000/employee`, 
+	const response = this._http.get<Employe[]>(`${this.URL}//employee`, 
 	  {
 		observe:'response',
 		params: queryParam
