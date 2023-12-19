@@ -15,7 +15,7 @@ export class AddManagerService {
 	private http: HttpClient
   ) { }
 
-  URL:string = "http://localhost:3000/" 
+  URL:string = "http://angular-server-1:3000/" 
 
   signUp(data: ManagerModel) : Observable<HttpResponse<any>> {
 		console.log(data);

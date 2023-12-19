@@ -9,12 +9,12 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class EmployeeService {
-  URL: string = "http://localhost:3000/" 
+  URL: string = "http://angular-server-1:3000/" 
 
   constructor(private _http: HttpClient) { }
 
  addEmploye(data: Employe) :Observable<HttpResponse<ServerResponse>> {
-		return  this._http.post<HttpResponse<ServerResponse>>(`${this.URL}//employee`, data, {
+		return  this._http.post<HttpResponse<ServerResponse>>(`${this.URL}employee`, data, {
 			observe: 'response'
 		}).pipe(
 			catchError(error => {
@@ -39,7 +39,7 @@ export class EmployeeService {
 	  queryParam = queryParam.set('managerRole', managerRole);
 	}
   
-	const response = this._http.get<Employe[]>(`${this.URL}//employee`, 
+	const response = this._http.get<Employe[]>(`${this.URL}employee`, 
 	  {
 		observe:'response',
 		params: queryParam

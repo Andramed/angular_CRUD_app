@@ -13,7 +13,7 @@ export class SignInService {
 		private http: HttpClient,
 
   ) { }
-URL:string = "http://localhost:3000/" 
+URL:string = "http://angular-server-1:3000/"
 
   signIn(data: SignIn): Observable<HttpResponse<any>> {
 	console.log(data);
