@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class EmployeeService {
-  URL: string = "http://angular-server-1:3000/" 
+  URL: string = "http://localhost:3000/" 
 
   constructor(private _http: HttpClient) { }
 
