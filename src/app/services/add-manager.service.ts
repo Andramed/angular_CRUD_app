@@ -15,7 +15,8 @@ export class AddManagerService {
 	private http: HttpClient
   ) { }
 
-  URL:string = "http://172.26.0.5:3000/" 
+  URL:string = "http://3.79.245.193:3000/"
+
 
   signUp(data: ManagerModel) : Observable<HttpResponse<any>> {
 		console.log(data);

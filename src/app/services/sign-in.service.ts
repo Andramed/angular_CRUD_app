@@ -13,7 +13,7 @@ export class SignInService {
 		private http: HttpClient,
 
   ) { }
-URL:string = "http://172.26.0.5:3000/"
+URL:string = "http://3.79.245.193:3000/"
 
   signIn(data: SignIn): Observable<HttpResponse<any>> {
 	console.log(data);
