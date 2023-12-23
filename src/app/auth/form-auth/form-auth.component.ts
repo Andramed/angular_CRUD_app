@@ -46,7 +46,7 @@ export class FormAuthComponent {
 				next: (res) => {
 					if (res) { 
 						//JWT received and we store this in state then user login
-						this.store.dispatch(new saveJWT(res.body.accesToken));					
+						this.store.dispatch(new saveJWT(res.body.acces_token));					
 						this._dialogRef.close();
 					}
 				},

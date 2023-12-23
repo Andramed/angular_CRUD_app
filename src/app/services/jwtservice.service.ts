@@ -16,6 +16,7 @@ import { saveJWT } from './storeNgxs/actions/saveToken.action';
 export class JWTServiceService {
 	decodedToken!: DecodedTokenInerface
 	token!:string
+	isAuthorized!: boolean
 	constructor(
 		private store: Store,
 		private localStorageService: LocalStoarageService
@@ -23,21 +24,34 @@ export class JWTServiceService {
 	
 	@Select(JWTSelector.jwt) tokenAcces$!: Observable<string>
 
-	decodeToken(): Observable<DecodedTokenInerface | null> {
+	decodeToken(isAuthorized: boolean, initialize:string): Observable<DecodedTokenInerface | null> {
+		console.log({
+			initializer: initialize,
+			statusAuth: isAuthorized
+		});
+		
+		this.isAuthorized = isAuthorized
 		return this.tokenAcces$.pipe(
 		  map(token => {
 			const localStorageToken = this.localStorageService.get('accesToken');
 			if (localStorageToken) {
 			  token = localStorageToken;
 			}
-	  
+			console.log(initialize, "decode token mai jos returnul");
+			
 			if (token && typeof token === 'string') {
 			  this.token = token;
 			  try {
 				this.decodedToken = jwtDecode(token);
-				this.store.dispatch(new saveJWT(token))
-				this.store.dispatch(new SaveDecodedJWT(this.decodedToken));
-				// this.localStorageService.set('accesToken', token);
+				
+				console.log({
+					statusAuthUSerInJwtService: isAuthorized
+				});
+				
+				if (isAuthorized) {
+					this.store.dispatch(new SaveDecodedJWT(jwtDecode(token)))
+				}
+				
 				return this.decodedToken;
 			  } catch (error) {
 				console.error(error);
@@ -54,18 +68,19 @@ export class JWTServiceService {
 	  
 
 	  getExpireTime(): Observable<number | undefined> {
-		return this.decodeToken().pipe(
+		
+		return this.decodeToken(this.isAuthorized, 'getExpireTime').pipe(
 		  map(decodedToken => decodedToken?.exp)
 		);
 	  }
 
 	  getRole(): Observable<string | undefined> {
-		return this.decodeToken().pipe(
+		return this.decodeToken(this.isAuthorized, "GetRole").pipe(
 			map(decodedToken => decodedToken?.role)
 		)
 	  }
 	  getUser(): Observable<string | undefined> {
-		return this.decodeToken().pipe(
+		return this.decodeToken(this.isAuthorized, "getUser").pipe(
 			map(decodedToken => decodedToken?.email)
 		)
 	  }

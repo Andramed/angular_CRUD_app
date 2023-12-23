@@ -14,25 +14,25 @@ export class SignInService {
 
   ) { }
 URL:string = "http://3.79.245.193:3000/"
+// URL:string = "http://localhost:3000/"
 
-  signIn(data: SignIn): Observable<HttpResponse<any>> {
-	console.log(data);
-	const response = this.http.post(`${this.URL}signin`, 
-		{
-			data: data
-		},
-		{
-			observe: 'response'
-		} 
-	)
-	.pipe(
-		catchError(error => {
-			throw ({
-				error
-			});
-			
-		})
-	)
-	return response
-  }
+		signIn(data: SignIn): Observable<HttpResponse<any>> {
+			console.log(data);
+			const response = this.http.post(`${this.URL}signin`, 
+				{username:data.email, password:data.password, data},
+				{
+					observe: 'response'
+				} 
+			)
+			.pipe(
+				catchError(error => {
+					throw ({
+						error
+					});
+					
+				})
+			)
+			return response
+		}
+
 }

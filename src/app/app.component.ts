@@ -57,30 +57,63 @@ export class AppComponent implements OnInit {
 	
 	
 	ngOnInit(){	
-		
 		this.guard.guard().subscribe({
 			next: (value) => {
-				this.isAuthorized = value
+				console.log(
+					{
+						message: "token not expired",
+						statusExpired: value
+					}
+				);
+				
 				if (!value) {
-					console.log(value);
-					this.appService.dataSubject.subscribe( data => {
-					this.dataSource = new MatTableDataSource<Employe>(data);
-					this.dataSource.sort = this.sort;
-					this.dataSource.paginator = this.paginator;
-		})
+					console.log('toke not expired');
+					// need to validate toke in the back-end side obtaine if is valide or not
+					this.guard.validateToken().subscribe({
+						
+						next: (value) => {
+							if (value.ok) {
+								this.isAuthorized = true
+								console.log(this.isAuthorized, "cind am obtinut pe back ca token valid");
+								const decodeToken = this.jwtService.decodeToken(this.isAuthorized, "ng on init app components").subscribe()
+								
+								
+								
+							}
+							
+							this.appService.dataSubject.subscribe( data => {
+								this.dataSource = new MatTableDataSource<Employe>(data);
+								this.dataSource.sort = this.sort;
+								this.dataSource.paginator = this.paginator;
+							})
+							this.appService.getListEmp();
+						},
+						error: (err) => {
+							console.log({
+								message: "Token is not valide rederiction user to signIN",
+	
+							});
+
+							if (err.status === 401) {
+								console.log('token expired try to sign in');
+								this._dialog.open(FormAuthComponent);
+							}		
+						}
+					})
 				} else {
+					console.log('token expired try to sign in');
 					this._dialog.open(FormAuthComponent);
 				}
 				
 			}
 		})
+
 		this.userLogedNgxs$.subscribe({
 			next: (user) => {
 				console.log('user: ', user);
 				this.userRole = user.role;
 				this.user = user.email;
 				this.managerId = user.sub
-				this.appService.getListEmp(user.sub, user.role);
 			}
 		})
 	}
@@ -109,7 +142,7 @@ export class AppComponent implements OnInit {
 			.subscribe({
 				next: (res) => {
 					console.log(res);
-					this.appService.getListEmp(this.managerId, this.userRole);
+					this.appService.getListEmp();
 				},
 				error: (err) => {
 					console.log(err);	
@@ -127,7 +160,7 @@ export class AppComponent implements OnInit {
 	logout(){
 		console.log('logout');
 		this.localStorage.remov('myToken')
-		this.isAuthorized  = true
+		this.isAuthorized  = false
 		this.user = undefined
 		this.userRole = undefined
 		this._dialog.open(FormAuthComponent)

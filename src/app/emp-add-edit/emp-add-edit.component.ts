@@ -40,15 +40,10 @@ export class EmpAddEditComponent implements OnInit {
 		})
 	}
 
-	@Select(UserSelector.userLoged) ManagerId$!: Observable<DecodedTokenInerface>
+	
 
 
 	ngOnInit(): void {
-		this.ManagerId$.subscribe(user => {
-			this.managerId = user.sub;
-			this.managerEmail = user.email;
-			this.userRole = user.role
-		}) 
 		this.empForm.patchValue(this.data);
 	}
 
@@ -69,8 +64,6 @@ export class EmpAddEditComponent implements OnInit {
 					firstName: firstName,
 					lastName: lastName,
 					email: email,
-					managerId: this.managerId, 
-					emailManager: this.managerEmail
 				}
 				).subscribe({
 				next: (res) =>{
@@ -84,7 +77,7 @@ export class EmpAddEditComponent implements OnInit {
 							allResponse: res 
 						}
 					);
-					this._appService.getListEmp(this.managerId, this.userRole);
+					this._appService.getListEmp();
 					this._dialogRef.close();
 					
 				},
@@ -109,7 +102,7 @@ export class EmpAddEditComponent implements OnInit {
 					statusText: res.statusText,
 					allResponse: res 
 				});
-				this._appService.getListEmp(this.managerId, this.userRole);
+				this._appService.getListEmp();
 				this._dialogRef.close();
 			}, 
 			error: (err) => {

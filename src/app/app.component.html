@@ -4,19 +4,19 @@
 	<span class="example-spacer"></span>
 	<div class="btn-container">
 		
-		<button *ngIf="!isAuthorized" mat-raised-button (click)="openAddEditEmpForm()" >
+		<button *ngIf="isAuthorized" mat-raised-button (click)="openAddEditEmpForm()" >
 			Add Employee
 		</button>
-		<button mat-raised-button type="button" (click)="openAddManager()" *ngIf="userRole==='admin'">
+		<button mat-raised-button type="button" (click)="openAddManager()" *ngIf="userRole=='1'">
 			Add new Manager
 		</button>
-		<button mat-raised-button type="button" (click)="logout()" *ngIf="user"   mat-raised-button>
-			{{user}}
+		<button mat-raised-button type="button" (click)="logout()"    mat-raised-button>
+			Log out
 		</button>
 	</div>
   </mat-toolbar>
 
-<div *ngIf="!isAuthorized" class="container-list">
+<div *ngIf="isAuthorized" class="container-list">
 	<mat-form-field>
 		<mat-label>Filter</mat-label>
 		<input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
