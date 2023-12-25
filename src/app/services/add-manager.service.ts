@@ -4,7 +4,7 @@ import { SignIn } from '../interface/SignData';
 import { Observable, catchError } from 'rxjs';
 import {ManagerModel} from '../interface/ManagerModel'
 import { environment } from 'src/environments/environment.prod';
-
+import { URL } from '../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,10 @@ export class AddManagerService {
 	private http: HttpClient
   ) { }
 
-  URL:string = "http://3.79.245.193:3000/"
-// URL:string = "http://localhost:3000/"
+
 
   signUp(data: ManagerModel) : Observable<HttpResponse<any>> {
-		console.log(data);
-		
-		const response = this.http.post(`${this.URL}addmanager`,
+		const response = this.http.post(`${URL}addmanager`,
 			{
 				data
 			},

@@ -12,7 +12,8 @@ import { DecodedTokenInerface } from 'src/app/interface/DecodedToken';
 		exp: undefined,
 		iat: undefined,
 		role: undefined,
-		sub: undefined
+		sub: undefined,
+		isAuthorized:undefined
 		
 	}
 })
@@ -30,10 +31,8 @@ export class DecodedState {
 			...state,
 			email: email,
 			sub: sub,
-			role: role
-
-
-
+			role: role,
+			isAuthorized: _action.isAuthorized
 		})
 		
 	}

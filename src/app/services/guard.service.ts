@@ -9,54 +9,48 @@ import { LocalStoarageService } from './local-stoarage.service';
 import { JWTSelector } from './storeNgxs/selectors/jwt.selector';
 import { modelJWT } from '../interface/JWT';
 import { Select } from '@ngxs/store';
-
+import { URL } from '../constants';
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class GuardService {
-  isExpired!:boolean
+	isExpired!:boolean
  
-  constructor(
-		private jwtService: JWTServiceService,
-		private http: HttpClient,
-		private storageService: LocalStoarageService
-  ) { }
+	constructor(
+			private jwtService: JWTServiceService,
+			private http: HttpClient,
+			private storageService: LocalStoarageService
+	) { }
 
-  URL:string = "http://3.79.245.193:3000/"
-// URL:string = "http://localhost:3000/"
-   guard() : Observable<boolean>  {
-		return this.jwtService.isTokenExpired()
-			.pipe(
-				
-				map( isExpired => {
-					console.log(isExpired);
-					return isExpired
-				})
-			)
-  }
-  @Select(JWTSelector.jwt) jwtNgxs$!: Observable<modelJWT>
 
-	validateToken() : Observable<HttpResponse<any>> {
-		return this.jwtNgxs$.pipe(
-			switchMap((jwt: modelJWT) => {
-				console.log(jwt); // Acesta va afișa obiectul jwt în consolă
-				return this.http.get<any>(`${this.URL}signin/validate`, {
-					headers: new HttpHeaders().set('Authorization', `Bearer ${jwt}`),
-					observe: 'response'
-				})
+	guard() : Observable<boolean>  {
+			return this.jwtService.isTokenExpired()
 				.pipe(
-					catchError(err => {
-						throw err
-					}) 
+					
+					map( isExpired => {
+						
+						return isExpired
+					})
 				)
-			})
-		);
 	}
-
-
-
-
-
+	validateToken(): Observable<boolean>  {
+		return new Observable<boolean>(observer => {
+			this.http.get<any>(`${URL}signin/validate`, {
+						observe: 'response'
+					})
+					.subscribe({
+						next: (response) => {
+							observer.next(true);
+							observer.complete();
+						},
+						error: (err) => {
+							console.error(err);
+							observer.next(false);
+							observer.complete();
+						}
+					});
+		});
+	}
 } 

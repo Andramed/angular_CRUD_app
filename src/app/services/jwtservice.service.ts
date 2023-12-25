@@ -25,11 +25,6 @@ export class JWTServiceService {
 	@Select(JWTSelector.jwt) tokenAcces$!: Observable<string>
 
 	decodeToken(isAuthorized: boolean, initialize:string): Observable<DecodedTokenInerface | null> {
-		console.log({
-			initializer: initialize,
-			statusAuth: isAuthorized
-		});
-		
 		this.isAuthorized = isAuthorized
 		return this.tokenAcces$.pipe(
 		  map(token => {
@@ -37,21 +32,14 @@ export class JWTServiceService {
 			if (localStorageToken) {
 			  token = localStorageToken;
 			}
-			console.log(initialize, "decode token mai jos returnul");
-			
 			if (token && typeof token === 'string') {
 			  this.token = token;
 			  try {
 				this.decodedToken = jwtDecode(token);
 				
-				console.log({
-					statusAuthUSerInJwtService: isAuthorized
-				});
-				
 				if (isAuthorized) {
-					this.store.dispatch(new SaveDecodedJWT(jwtDecode(token)))
+					this.store.dispatch(new SaveDecodedJWT(jwtDecode(token), isAuthorized))
 				}
-				
 				return this.decodedToken;
 			  } catch (error) {
 				console.error(error);

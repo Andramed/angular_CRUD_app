@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EmpAddEditComponent } from './emp-add-edit/emp-add-edit.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AuthComponent } from './auth/auth.component';
 import { FormAuthComponent } from './auth/form-auth/form-auth.component';
 import { MaterialModule } from './module/material.module';
@@ -17,6 +17,8 @@ import { TokenState } from './services/storeNgxs/states/token.state';
 import { GuardService } from './services/guard.service';
 import { LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dialog-window-add-manager.component';
+import { InterceptorService } from './services/interceptor.service';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -42,7 +44,14 @@ import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dia
 		
 	],
 	exports: [FormsModule, ReactiveFormsModule],
-	providers: [GuardService],
+	providers: [
+		GuardService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: InterceptorService,
+			multi: true
+		}
+	],
 	bootstrap: [AppComponent], 
 })
 export class AppModule { 

@@ -5,5 +5,6 @@ export interface DecodedTokenInerface {
 	iat?:number
 	role?:string
 	sub?: number
+	isAuthorized?:boolean
 
 }

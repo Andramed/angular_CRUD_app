@@ -13,16 +13,18 @@ import { saveJWT } from '../actions/saveToken.action';
 export class TokenState {
 	@Action(saveJWT)
 	saveJWT(ctx: StateContext<modelJWT>, _action: saveJWT) {
+		console.log({
+			message: "log from token state",
+			_action
+		});
+		
+		
 		const {JWT} = _action
-		if (!JWT) {
-			console.log('JWT not obtained for save this in state');
-			return
-		}
+		
 		const state = ctx.getState();
 		ctx.setState({
 			...state,
 			tokenAcces: JWT
 		})
- 
 	}
 }

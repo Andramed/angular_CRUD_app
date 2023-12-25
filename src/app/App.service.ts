@@ -15,9 +15,6 @@ export class AppService {
 
  
   dataSubject: BehaviorSubject<Employe[]> = new BehaviorSubject<Employe[]>([]);
-
-  
-
 	getListEmp(){
 		this.empSerive.getEmployee().subscribe(
 			res => {

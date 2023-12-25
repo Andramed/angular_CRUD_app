@@ -8,6 +8,7 @@ import { saveJWT } from '../../services/storeNgxs/actions/saveToken.action';
 
 import { JWTServiceService } from 'src/app/services/jwtservice.service';
 import { SaveDecodedJWT } from 'src/app/services/storeNgxs/actions/saveDecodedToken.actions';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -22,7 +23,7 @@ export class FormAuthComponent {
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _signInService: SignInService,
-	
+		private userService: UserService,
 		private store: Store,
 		private _dialogRef: DialogRef<FormAuthComponent>,
 		private jwtService: JWTServiceService
@@ -41,22 +42,23 @@ export class FormAuthComponent {
 		
 			const {email, password} = this.signInForm.value;
 			console.log(email, password);
-			// to dispatch for saving new state of JWT obtained from the server
+	
  			this._signInService.signIn({email, password}).subscribe({
 				next: (res) => {
 					if (res) { 
-						//JWT received and we store this in state then user login
-						this.store.dispatch(new saveJWT(res.body.acces_token));					
+
+						const token = res.body.tokenAcces
+						this.store.dispatch(new saveJWT(token));
+						this.userService.authorize("signIn")
 						this._dialogRef.close();
 					}
 				},
 				error(err) {
-					console.log(err);
+					console.error(err);
+					
 				},
 			})
-		
-
-		
+	
 	}
 }
 
