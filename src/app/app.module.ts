@@ -9,7 +9,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AuthComponent } from './auth/auth.component';
 import { FormAuthComponent } from './auth/form-auth/form-auth.component';
 import { MaterialModule } from './module/material.module';
-
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { environment } from '../environments/environment.prod';
 import { DecodedState } from './services/storeNgxs/states/user.state';
@@ -18,6 +17,7 @@ import { GuardService } from './services/guard.service';
 import { LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dialog-window-add-manager.component';
 import { InterceptorService } from './services/interceptor.service';
+import { EmpState } from './services/storeNgxs/states/empState.state';
 
 @NgModule({
 	declarations: [
@@ -34,12 +34,13 @@ import { InterceptorService } from './services/interceptor.service';
 		HttpClientModule,
 		FormsModule,
 		MaterialModule,
-		NgxsModule.forRoot([DecodedState, TokenState, ], {
+		NgxsModule.forRoot([DecodedState, TokenState, EmpState], {
 			developmentMode: !environment.production
 		}),
 		NgxsReduxDevtoolsPluginModule.forRoot(),
 		NgxsStoragePluginModule.forRoot({
 			key: "myToken",
+			
 		})
 		
 	],
