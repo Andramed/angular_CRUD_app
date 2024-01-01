@@ -17,3 +17,6 @@ mat-form-field {
 button{
 	flex: 1;
 }
+.requirment-input > li {
+	color: red;
+}

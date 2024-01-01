@@ -6,26 +6,53 @@
 			<div class="row">
 				<mat-form-field appearance="outline">
 					<mat-label>First Name</mat-label>
-					<input formControlName="firstName" matInput placeholder="Ex: John" type="text">
+					<input (focus)="setRequirment(['First Name requirments:', 'firstName'])" (blur)="insetRequrments()"  formControlName="firstName" matInput placeholder="Ex: John" type="text">
 				</mat-form-field>
 				<mat-form-field appearance="outline">
 					<mat-label>Last Name</mat-label>
-					<input formControlName="lastName" matInput placeholder="Ex: Doe" type="text">
+					<input (focus)="setRequirment(['Last Name requirments:', 'lastName'])" (blur)="insetRequrments()" formControlName="lastName" matInput placeholder="Ex: Doe" type="text">
 				</mat-form-field>				
 			</div>
 			<div class="row">
 				<mat-form-field appearance="outline">
 					<mat-label>Email</mat-label>
-					<input formControlName="email" matInput placeholder="Ex: example@mail.com" type="email">
+					<input (focus)="setRequirment(['Email requirments:', 'email'])" (blur)="insetRequrments()" formControlName="email" matInput placeholder="Ex: example@mail.com" type="email">
 				</mat-form-field>
 			</div>
+			<div class="row">
+				<mat-form-field appearance="outline">
+					<mat-label>Password</mat-label>
+					<input (focus)="setRequirment(['Password requirments:', 'password'])" (blur)="insetRequrments()" formControlName="password" matInput  type="password">
+				</mat-form-field>
+			</div>
+			<mat-hint *ngIf="requirmentsFor" >
+				<h3>{{requirmentsFor[0]}}</h3>
+				<ul class = "requirment-input">
+					<li *ngIf="empForm.get(requirmentsFor[1])?.errors?.['passwordLength']">
+						{{ empForm.get(requirmentsFor[1])?.errors?.['passwordLength'] }}
+					  </li>
+					  <li *ngIf="empForm.get(requirmentsFor[1])?.errors?.['containNumber']">
+						{{ empForm.get(requirmentsFor[1])?.errors?.['containNumber'] }}
+					  </li>
+					  <li *ngIf="empForm.get(requirmentsFor[1])?.errors?.['capitalLetter']">
+						{{ empForm.get(requirmentsFor[1])?.errors?.['capitalLetter'] }}
+					  </li>
+					  <li *ngIf="empForm.get(requirmentsFor[1])?.errors?.['specialCharacter']">
+						{{ empForm.get(requirmentsFor[1])?.errors?.['specialCharacter'] }}
+					  </li>
+					  <li *ngIf="empForm.get('email')?.errors?.['required']">
+						Email is required
+					  </li>
+					  <li *ngIf="empForm.get('email')?.errors?.['email']">
+						Invalid email format.
+					  </li>  
+				</ul>
+			</mat-hint>
 		</div>
 
 		<div mat-dialog-actions class="action">
 			<button type="button"  mat-dialog-close="false"  mat-raised-button>Cancel</button>
-			<!-- Exemplu pentru butonul Submit -->
-			<button type="submit" mat-raised-button color="primary" (click)="switcherSaveOrUpdate()">{{data ? 'Update' : 'Save'}}</button>
-
+			<button [disabled]="!empForm.valid" type="submit" mat-raised-button color="primary" (click)="switcherSaveOrUpdate()">{{data ? 'Update' : 'Save'}}</button>
 		</div>
 	</form>
 </section>

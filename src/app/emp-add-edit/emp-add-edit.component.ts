@@ -1,15 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { DialogRef } from '@angular/cdk/dialog';
 import { AppService } from '../App.service'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditEmp } from '../interface/EditEmpData';
-import { Select } from '@ngxs/store';
-import { UserSelector } from '../services/storeNgxs/selectors/authenticatedUser.selector';
-import { Observable } from 'rxjs';
-import { DecodedState } from '../services/storeNgxs/states/user.state';
-import { DecodedTokenInerface } from '../interface/DecodedToken';
+import { InputValidatorService } from '../services/input-validator.service';
+
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -22,21 +19,22 @@ export class EmpAddEditComponent implements OnInit {
 	managerId!: number | undefined;
 	managerEmail: string | undefined;
 	userRole: string | undefined
-	
+	requirmentsFor!: [string, string]
 	constructor(
 			private _formBuilder: FormBuilder,
 			private _empService: EmployeeService,
 			private _dialogRef: DialogRef<EmpAddEditComponent>, 
 			private _appService: AppService,
 			@Inject(MAT_DIALOG_DATA) public data: EditEmp,
+			private validator: InputValidatorService
 
 
 		){
 		this.empForm = this._formBuilder.group({
-			firstName: '',
-			lastName: '',
-			email: '',
-			
+			firstName: ['', [Validators.required, this.validator.firstNameValidator()]],
+			lastName: ['', [Validators.required, this.validator.firstNameValidator()]],
+			email: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, this.validator.passwordValidator()]],
 		})
 	}
 
@@ -110,4 +108,12 @@ export class EmpAddEditComponent implements OnInit {
 			}
 		});
 	}
+
+	setRequirment(value: [string, string]) {
+		this.requirmentsFor = [...value]
+	  }
+
+	  insetRequrments() {
+		this.requirmentsFor = ['', '']
+	  }
 }
