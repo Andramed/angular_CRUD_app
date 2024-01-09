@@ -13,8 +13,9 @@ import { DecodedTokenInerface } from 'src/app/interface/DecodedToken';
 		iat: undefined,
 		role: undefined,
 		sub: undefined,
-		isAuthorized:undefined
-		
+		isAuthorized:undefined,
+		firtsName:undefined,
+		lastName:undefined
 	}
 })
 
@@ -25,14 +26,21 @@ export class DecodedState {
 
 	@Action(SaveDecodedJWT)
 	loginUser(ctx: StateContext<DecodedTokenInerface>, _action: SaveDecodedJWT) {
-		const {email, sub, role} = _action.userInfo
+		console.log({
+			location: "Decode state action check user info decoded"
+			,userinfo: _action.userInfo
+		});
+		
+		const {email, sub, role, firtsName, lastName } = _action.userInfo
 		const state = ctx.getState();
 		ctx.setState({
 			...state,
 			email: email,
 			sub: sub,
 			role: role,
-			isAuthorized: _action.isAuthorized
+			isAuthorized: _action.isAuthorized,
+			firtsName: firtsName,
+			lastName: lastName
 		})
 		
 	} 
@@ -46,7 +54,9 @@ export class DecodedState {
 			email: undefined,
 			sub: undefined,
 			role: undefined,
-			isAuthorized: false
+			isAuthorized: false,
+			firtsName: undefined,
+			lastName: undefined
 		})
 	}
 

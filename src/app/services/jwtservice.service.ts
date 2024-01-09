@@ -36,9 +36,13 @@ export class JWTServiceService {
 			  this.token = token;
 			  try {
 				this.decodedToken = jwtDecode(token);
+				console.log({
+					location: "decodeToken info about decoded",
+					decodedToken: this.decodedToken
+				});
 				
 				if (isAuthorized) {
-					this.store.dispatch(new SaveDecodedJWT(jwtDecode(token), isAuthorized))
+					this.store.dispatch(new SaveDecodedJWT(this.decodedToken, isAuthorized))
 				}
 				return this.decodedToken;
 			  } catch (error) {

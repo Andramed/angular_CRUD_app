@@ -17,8 +17,9 @@ export class UserSelector {
 				email: state.email,
 				sub: state.sub,
 				role: state.role,
-				isAuthorized: state.isAuthorized
-				
+				isAuthorized: state.isAuthorized,
+				firtsName: state.firtsName,
+				lastName: state.lastName
 			}
 			
 		}

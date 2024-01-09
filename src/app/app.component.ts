@@ -83,9 +83,9 @@ export class AppComponent implements OnInit {
 		
 		this.userLogedNgxs$.subscribe({
 			next: (user) => {
-				this.userRole = user.role;
-				this.user = user.email;
-				this.managerId = user.sub,
+				// this.userRole = user.role;
+				// this.user = user.email;
+				// this.managerId = user.sub,
 				this.isAuthorized= user.isAuthorized
 			} 
 		})	
