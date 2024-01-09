@@ -1,0 +1,75 @@
+<button class="toogleBtn" (click)="toggleDrawer()">
+	<img class="btn-menu" src="../../../assets/svg/menu.svg" alt="menu">
+</button>
+  
+  <ul *ngIf="!isDrawerOpen" class="nav-list">
+		
+		<li>
+			<a routerLink="home">
+				<img class="img-svg" src="../../../assets/svg/dashboard.svg" alt="home">
+			</a>
+		</li>	
+		<li>
+			<a routerLink="bookmark">
+				<img class="img-svg" src="../../../assets/svg/bookmark.svg" alt="bookmark">
+			</a>					
+		</li>
+		
+		<li>
+			<a routerLink="settings">
+				<img class="img-svg" src="../../../assets/svg/setting.svg" alt="setting">
+			</a>
+		</li>
+
+		<li>
+			<a routerLink="employee">
+				<img class="img-svg" src="../../../assets/svg/employee.svg" alt="employee">
+			</a>
+		</li>
+		<li>
+			<a routerLink="manager">
+				<img class="img-svg" src="../../../assets/svg/manager.svg" alt="manager">
+			</a>
+		</li> 
+  </ul>
+  
+  <mat-drawer-container [ngClass]="isDrawerOpen ? 'testContainer' : 'hidden'">
+	<mat-drawer class="drawer" #sidNav mode="side">
+		<ul class="list-drawer">
+			<li class="list-element" >
+				<a routerLink="home">
+					<img class="img-svg" src="../../../assets/svg/dashboard.svg" alt="home">
+					<p>dashboard</p>	
+				</a>
+			</li>
+			<li class="list-element">
+				<a routerLink="bookmark">
+					<img class="img-svg" src="../../../assets/svg/bookmark.svg" alt="bookmark">
+					<p>bookmark</p>	
+				</a>
+			</li>
+			<li class="list-element">
+				<a routerLink="settings">
+					<img class="img-svg" src="../../../assets/svg/setting.svg" alt="setting">
+					<p>setting</p>
+				</a>	
+			</li>
+			<li class="list-element">
+				<a routerLink="employee">
+					<img class="img-svg" src="../../../assets/svg/employee.svg" alt="employee">
+					<p>employee</p>
+				</a>
+			</li>
+			<li class="list-element">
+				<a routerLink="manager">
+					<img class="img-svg" src="../../../assets/svg/manager.svg" alt="manager">
+					<p>manager</p>
+				</a>					
+			</li>
+		</ul>
+	</mat-drawer>
+
+	<mat-drawer-content></mat-drawer-content>
+	
+  </mat-drawer-container>
+  
