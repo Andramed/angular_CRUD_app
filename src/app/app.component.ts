@@ -22,6 +22,7 @@ import {UserService} from '../../src/app/services/user.service';
 import { EmpModel, EmpState } from './services/storeNgxs/states/empState.state';
 import { RemoveEmp } from './services/storeNgxs/actions/saveEmp.actions';
 import { EmpListSelector } from './services/storeNgxs/selectors/empList.selector';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -48,7 +49,8 @@ export class AppComponent implements OnInit {
 		private guard: GuardService,
 		private jwtService: JWTServiceService,
 		private localStorage: LocalStoarageService,
-		private userService: UserService
+		private userService: UserService,
+		private route: Router
 	
 	){
 		this.logedUser$ = store.select('auth');
@@ -58,20 +60,25 @@ export class AppComponent implements OnInit {
 	@Select(EmpListSelector.list) list$!: Observable<Employe[]> 
 
 	ngOnInit(){
-		console.log("init component");
+	
 		
 		const tokenPresent = this.checkIfTokenExist();
 		let isExpired:boolean = true
-
+		console.log(this.isAuthorized);
+		
 		if (tokenPresent) {
 			isExpired = this.checkIfTokenIsExpired();
 			if (!isExpired) {
 				this.userService.authorize("tokenPresent")
+				this.route.navigate(['/home'])
 			} else {
-				this._dialog.open(FormAuthComponent)			
+				// this._dialog.open(FormAuthComponent)			
+				this.route.navigate(['/signin'])
 			}
 		} else {
-			this._dialog.open(FormAuthComponent)
+			// this._dialog.open(FormAuthComponent)
+			this.route.navigate(['/signin'])
+
 		}
 		
 		this.userLogedNgxs$.subscribe({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Action,  State, StateContext } from '@ngxs/store';
 import { AuthState } from '../../../interface/AuthState';
 
-import { SaveDecodedJWT } from '../actions/saveDecodedToken.actions';
+import { ClearState, SaveDecodedJWT } from '../actions/saveDecodedToken.actions';
 import { DecodedTokenInerface } from 'src/app/interface/DecodedToken';
 
 @State<DecodedTokenInerface>({
@@ -35,6 +35,19 @@ export class DecodedState {
 			isAuthorized: _action.isAuthorized
 		})
 		
+	} 
+
+	@Action(ClearState)
+	logoutUser(ctx: StateContext<DecodedTokenInerface>, _action: ClearState) {
+		
+		const state = ctx.getState();
+		ctx.setState({
+			...state,
+			email: undefined,
+			sub: undefined,
+			role: undefined,
+			isAuthorized: false
+		})
 	}
 
 }

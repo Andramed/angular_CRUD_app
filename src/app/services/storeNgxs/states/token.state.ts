@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action,  State, StateContext } from '@ngxs/store';
 import { modelJWT } from 'src/app/interface/JWT';
-import { saveJWT } from '../actions/saveToken.action';
+import { ClearJwt, saveJWT } from '../actions/saveToken.action';
 
 @State<modelJWT>({
 	name: 'myToken',
@@ -26,5 +26,17 @@ export class TokenState {
 			...state,
 			tokenAcces: JWT
 		})
+	}
+
+	@Action(ClearJwt)
+	clearJwt(ctx: StateContext<modelJWT>, _action: ClearJwt) {
+		console.log('Clear jwt log from state');
+
+		const state = ctx.getState();
+		ctx.setState({
+			...state,
+			tokenAcces: null
+		})
+		
 	}
 }

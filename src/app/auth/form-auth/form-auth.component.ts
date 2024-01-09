@@ -10,7 +10,7 @@ import { saveJWT } from '../../services/storeNgxs/actions/saveToken.action';
 import { JWTServiceService } from 'src/app/services/jwtservice.service';
 import { SaveDecodedJWT } from 'src/app/services/storeNgxs/actions/saveDecodedToken.actions';
 import { UserService } from 'src/app/services/user.service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -26,8 +26,9 @@ export class FormAuthComponent {
 		private _signInService: SignInService,
 		private userService: UserService,
 		private store: Store,
-		private _dialogRef: MatDialogRef<FormAuthComponent>,
-		private jwtService: JWTServiceService
+		// private _dialogRef: MatDialogRef<FormAuthComponent>,
+		private jwtService: JWTServiceService,
+		private route: Router
 	) {
 		this.signInForm = this._formBuilder.group({
 			email: '',
@@ -41,7 +42,6 @@ export class FormAuthComponent {
 
 	submitForm() {
 			const {email, password} = this.signInForm.value;
-			this._dialogRef.close();
  			this._signInService.signIn({email, password}).subscribe({
 				next: (res) => {
 					if (res.ok) { 
@@ -59,8 +59,8 @@ export class FormAuthComponent {
 								message: "service authorize finished",
 
 							});
-							
-							this._dialogRef.close();
+							this.route.navigate(['/home'])
+							// this._dialogRef.close();
 						} 
 					}
 				},

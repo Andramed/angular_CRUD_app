@@ -1,4 +1,4 @@
-<main class="main-wrapper">
+<main class="main-wrapper" *ngIf="isAuthorized">
 	<div class=" wraper">
 		<section class="toolbar">
 			<app-toolbar></app-toolbar>
@@ -20,5 +20,7 @@
 
 </main>
 
+
+<router-outlet *ngIf="!isAuthorized"></router-outlet>
 
 <!-- change in a component to the route emps o logged user -->

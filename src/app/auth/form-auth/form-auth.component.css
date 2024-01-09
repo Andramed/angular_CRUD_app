@@ -1,10 +1,15 @@
 .auth-form{
 	width: 30rem;
 	padding: 3rem;
+	display:flex;
+	flex-direction: column;
+	background: rgb(255, 255, 255);
+	border: 0.2px solid #333; /* Grosimea și culoarea border-ului */
+	box-shadow: 5px 5px 10px #888888; 
 }
 
 button{
-	flex: 1;
+	width: 100%;
 }
 
 form{
@@ -17,6 +22,7 @@ form{
 	margin-bottom: 0.4rem;
 	padding: 1rem;
 	align-items: center;
+	justify-content: center;
 }
 
 

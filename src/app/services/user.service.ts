@@ -50,7 +50,6 @@ export class UserService {
 				// this.getDataOfEmp();
 			break;
 			
-			
 		default:
 			break;
 	}		
