@@ -2,7 +2,7 @@ import { Injectable, ViewChild } from '@angular/core';
 import {GuardService} from './guard.service'
 import { JWTServiceService } from './jwtservice.service';
 import { Observable } from 'rxjs';
-import { AppService } from '../App.service';
+import { AppService } from './App.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Employe } from '../interface/Employee';
 import { MatSort } from '@angular/material/sort';

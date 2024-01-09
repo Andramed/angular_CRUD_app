@@ -1,12 +1,12 @@
 import { Component, OnInit,  ViewChild} from '@angular/core';
 import {  MatDialog } from '@angular/material/dialog';
-import { EmpAddEditComponent } from './emp-add-edit/emp-add-edit.component';
+import { EmpAddEditComponent } from './component/emp-add-edit/emp-add-edit.component';
 import { EmployeeService } from './services/employee.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Employe } from './interface/Employee';
-import { AppService } from './App.service';
+import { AppService } from './services/App.service';
 import { Observable} from 'rxjs';
 import { EditEmp } from './interface/EditEmpData';
 import { AuthState } from './interface/AuthState';
@@ -17,7 +17,7 @@ import { FormAuthComponent } from './auth/form-auth/form-auth.component';
 import { JWTServiceService } from './services/jwtservice.service';
 import { LocalStoarageService } from './services/local-stoarage.service';
 import { DecodedTokenInerface } from './interface/DecodedToken';
-import { DialogWindowAddManagerComponent } from './dialog-window-add-manager/dialog-window-add-manager.component';
+import { DialogWindowAddManagerComponent } from '../app/component/dialog-window-add-manager/dialog-window-add-manager.component';
 import {UserService} from '../../src/app/services/user.service';
 import { EmpModel, EmpState } from './services/storeNgxs/states/empState.state';
 import { RemoveEmp } from './services/storeNgxs/actions/saveEmp.actions';
@@ -83,56 +83,11 @@ export class AppComponent implements OnInit {
 			} 
 		})	
 		
-		this.list$.subscribe({
-			next: (list) => {
-				console.log(list);
-				this.getDataOfEmp(list)
-			}
-		})
+		
 	
 	}
-	openAddEditEmpForm() {
-		this._dialog.open(EmpAddEditComponent);
-	}
+	
 
-	openEditEmpForm(data: EditEmp){
-		this._dialog.open(EmpAddEditComponent, {
-			data,
-		});
-	}
-
-	applyFilter(event: Event) {
-		const filterValue = (event.target as HTMLInputElement).value;
-		this.dataSource.filter = filterValue.trim().toLowerCase();
-		if (this.dataSource.paginator) {
-		  this.dataSource.paginator.firstPage();
-		}
-	}
-
-	deleteUser(id: number) {
-		this.empService.deleteEmploye(id)
-			.subscribe({
-				next: (res) => {
-					this.appService.getListEmp();
-				},
-				error: (err) => {
-					console.log(err);	
-				}, 
-			});
-	} 
-
-	openAddManager() {
-		this._dialog.open(DialogWindowAddManagerComponent)
-	}
-
-	logout(){
-		this.localStorage.remov('myToken');
-		this.store.dispatch(new RemoveEmp())
-		this.isAuthorized  = false
-		this.user = undefined
-		this.userRole = undefined
-		this._dialog.open(FormAuthComponent)
-	}
 
 	checkIfTokenExist(): boolean {
 		const token = this.localStorage.get("myToken")
@@ -149,9 +104,5 @@ export class AppComponent implements OnInit {
 		return isExpired
 	}
 	
-		getDataOfEmp(data: Employe[]){
-				this.dataSource = new MatTableDataSource<Employe>(data);
-				this.dataSource.sort = this.sort;
-				this.dataSource.paginator = this.paginator;
-		}
+		
 }

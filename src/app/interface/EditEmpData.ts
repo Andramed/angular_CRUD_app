@@ -3,5 +3,5 @@ export interface EditEmp {
 	lastName?: string,
 	email?: string,
 	id: number
-	
+	password?: string
 }

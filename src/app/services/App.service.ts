@@ -1,12 +1,12 @@
 import { Injectable, ViewChild } from '@angular/core';
-import { EmployeeService } from './services/employee.service';
+import { EmployeeService } from './employee.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { Employe } from './interface/Employee';
+import { Employe } from '../interface/Employee';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, catchError, tap } from 'rxjs';
 import { Store } from '@ngxs/store';
-import {SaveEmp} from '../app/services/storeNgxs/actions/saveEmp.actions'
+import {SaveEmp} from './storeNgxs/actions/saveEmp.actions'
 @Injectable({
   providedIn: 'root'
 })
