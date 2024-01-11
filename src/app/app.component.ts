@@ -42,12 +42,8 @@ export class AppComponent implements OnInit {
 	tokenIsExpired!:boolean
 
 	constructor(
-		private _dialog: MatDialog,
-		private empService: EmployeeService,
-		private appService: AppService,
 		private store: Store,
 		private guard: GuardService,
-		private jwtService: JWTServiceService,
 		private localStorage: LocalStoarageService,
 		private userService: UserService,
 		private route: Router
@@ -57,41 +53,29 @@ export class AppComponent implements OnInit {
 	};
 
 	@Select(UserSelector.userLoged) userLogedNgxs$!: Observable<DecodedTokenInerface>
-	@Select(EmpListSelector.list) list$!: Observable<Employe[]> 
+	
 
 	ngOnInit(){
-	
-		
 		const tokenPresent = this.checkIfTokenExist();
 		let isExpired:boolean = true
 		console.log(this.isAuthorized);
-		
 		if (tokenPresent) {
 			isExpired = this.checkIfTokenIsExpired();
 			if (!isExpired) {
 				this.userService.authorize("tokenPresent")
 				this.route.navigate(['/home'])
 			} else {
-				// this._dialog.open(FormAuthComponent)			
 				this.route.navigate(['/signin'])
 			}
-		} else {
-			// this._dialog.open(FormAuthComponent)
-			this.route.navigate(['/signin'])
-
-		}
+			} else {
+				this.route.navigate(['/signin'])
+			}
 		
 		this.userLogedNgxs$.subscribe({
 			next: (user) => {
-				// this.userRole = user.role;
-				// this.user = user.email;
-				// this.managerId = user.sub,
 				this.isAuthorized= user.isAuthorized
 			} 
 		})	
-		
-		
-	
 	}
 	
 

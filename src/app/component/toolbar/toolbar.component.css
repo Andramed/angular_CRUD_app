@@ -13,3 +13,8 @@ mat-toolbar{
 	color: black;
 	padding: 0.1rem 0.4rem;
 } 
+
+.settings-panel{
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+}

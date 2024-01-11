@@ -31,6 +31,8 @@ import {SideNavModule} from '../app/component/sidenav/sidenav.module';
 import { RouterModule, Routes } from '@angular/router';
 import { BookmarkComponent } from './component/bookmark/bookmark.component';
 import { ManagersComponent } from './component/managers/managers.component';
+import { MatDialogRef } from '@angular/material/dialog';
+
 
 const routes: Routes = [
 	{path: 'home', component: DashboardsComponent},
@@ -85,7 +87,8 @@ const routes: Routes = [
 			provide: HTTP_INTERCEPTORS,
 			useClass: InterceptorService,
 			multi: true 
-		}
+		},
+		
 	],
 	bootstrap: [AppComponent], 
 })

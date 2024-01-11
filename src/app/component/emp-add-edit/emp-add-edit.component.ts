@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
-import { DialogRef } from '@angular/cdk/dialog';
+
 import { AppService } from '../../services/App.service'
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EditEmp } from '../../interface/EditEmpData';
 import { InputValidatorService } from '../../services/input-validator.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 
 @Component({

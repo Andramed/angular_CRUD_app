@@ -7,12 +7,14 @@
 			<button mat-raised-button type="button" (click)="logout()"    mat-raised-button>
 				Log out
 			</button>
-			<div class="acaunt">
-				{{
-					loggedUser['firstName'] 
-				}}
-				<span>{{loggedUser['lastName']}}</span>
-			</div>
+			<a class="settings-panel" routerLink="settings">
+				<div *ngIf="loggedUser['firstName'] && loggedUser['lastName']" class="acaunt">
+					{{
+						loggedUser['firstName'] 
+					}}
+					<span>{{loggedUser['lastName']}}</span>
+				</div>
+			</a>
 		</div>
 	</mat-toolbar>
 

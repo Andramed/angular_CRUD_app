@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,18 +8,22 @@ import { Employe } from 'src/app/interface/Employee';
 import { AppService } from 'src/app/services/App.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
-
+import { Select } from '@ngxs/store';
+import { EmpListSelector } from 'src/app/services/storeNgxs/selectors/empList.selector';
+import { Observable } from 'rxjs';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit  {
 
 	constructor(
 		private empService: EmployeeService,
 		private appService: AppService,
 		private _dialog: MatDialog,
+
 	) {
 
 	}
@@ -30,7 +34,21 @@ export class EmployeeComponent {
 	dataSource!: MatTableDataSource<Employe>;
 	isAuthorized!: boolean | undefined
 
+	@Select(EmpListSelector.list) list$!: Observable<Employe[]>
+	ngOnInit(): void {
+		this.list$.subscribe({
+			next: (data) => {
 
+				console.log({
+					locat: "init emp component",
+					data
+				});
+								
+				this.getDataOfEmp(data)
+			}
+		})
+		
+	}
 	getDataOfEmp(data: Employe[]){
 		this.dataSource = new MatTableDataSource<Employe>(data);
 		this.dataSource.sort = this.sort;
@@ -61,5 +79,8 @@ export class EmployeeComponent {
 		this._dialog.open(EmpAddEditComponent, {
 			data,
 		});
+	}
+	openAddEmpDialogForm() {
+		this._dialog.open(EmpAddEditComponent)
 	}
 }
