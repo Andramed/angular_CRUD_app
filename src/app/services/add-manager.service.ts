@@ -18,7 +18,7 @@ export class AddManagerService {
 
 
   signUp(data: ManagerModel) : Observable<HttpResponse<any>> {
-		const response = this.http.post(`${URL}addmanager`,
+		const response = this.http.post(`${URL}manager`,
 			{
 				...data,
 				role: 2

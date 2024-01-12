@@ -19,7 +19,7 @@ export class EmployeeService {
 	
   constructor(private _http: HttpClient) { }
 
-  @Select(JWTSelector.jwt) jwtNgxs$!: Observable<modelJWT>
+  
 
 	addEmploye(data: Employe) :Observable<HttpResponse<ServerResponse>> {
 		return  this._http.post<HttpResponse<ServerResponse>>(`${URL}employee/create`, data, {
