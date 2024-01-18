@@ -36,6 +36,8 @@ export class EmployeeComponent implements OnInit  {
 
 	@Select(EmpListSelector.list) list$!: Observable<Employe[]>
 	ngOnInit(): void {
+		this.appService.getListEmp();
+				
 		this.list$.subscribe({
 			next: (data) => {
 

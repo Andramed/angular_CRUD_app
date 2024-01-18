@@ -14,7 +14,7 @@ import { environment } from '../environments/environment.prod';
 import { DecodedState } from './services/storeNgxs/states/user.state';
 import { TokenState } from './services/storeNgxs/states/token.state';
 import { GuardService } from './services/guard.service';
-import { LOCAL_STORAGE_ENGINE, NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import {  NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { DialogWindowAddManagerComponent } from '../app/component/dialog-window-add-manager/dialog-window-add-manager.component';
 import { InterceptorService } from './services/interceptor.service';
 import { EmpState } from './services/storeNgxs/states/empState.state';
@@ -32,6 +32,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookmarkComponent } from './component/bookmark/bookmark.component';
 import { ManagersComponent } from './component/managers/managers.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { ManagersState } from './services/storeNgxs/states/managers.state';
 
 
 const routes: Routes = [
@@ -58,8 +64,8 @@ const routes: Routes = [
 		ToolbarComponent,
 		BreadCrumbComponent,
 		LayoutComponent,
-  BookmarkComponent,
-  ManagersComponent
+		BookmarkComponent,
+		ManagersComponent
 	],
 	imports: [
 		BrowserModule,
@@ -69,7 +75,7 @@ const routes: Routes = [
 		FormsModule,
 		MaterialModule,
 		MatToolbarModule,
-		NgxsModule.forRoot([DecodedState, TokenState, EmpState], {
+		NgxsModule.forRoot([DecodedState, TokenState, EmpState, ManagersState], {
 			developmentMode: !environment.production
 		}),
 		NgxsReduxDevtoolsPluginModule.forRoot(),
@@ -77,7 +83,12 @@ const routes: Routes = [
 			key: "myToken",	
 		}),
 		SideNavModule,
-  		RouterModule.forRoot(routes)
+  		RouterModule.forRoot(routes),
+		MatPaginatorModule,
+		MatInputModule,
+		MatFormFieldModule,
+		MatSortModule,
+		MatTableModule,
 		
 	],
 	exports: [FormsModule, ReactiveFormsModule],

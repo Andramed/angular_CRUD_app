@@ -1,5 +1,5 @@
 <div class="container-add-manager">
-	<h3>Add new manager</h3>
+	<h3>{{action}}</h3>
 	<form class="add-manager-form"  (ngSubmit)="onSubmit()" [formGroup]="managerForm" >
 		<div class="content">
 			<div class="row">
@@ -26,7 +26,7 @@
 				<mat-hint *ngIf="requirmentsFor" >
 					<h3>{{requirmentsFor[0]}}</h3>
 					<ul class = "passwordRequirments">
-						<li *ngIf="managerForm.get(requirmentsFor[1])?.errors?.['passwordLength']">
+						  <li  *ngIf="managerForm.get(requirmentsFor[1])?.errors?.['passwordLength'] && passwordRequire">
 							{{ managerForm.get(requirmentsFor[1])?.errors?.['passwordLength'] }}
 						  </li>
 						  <li *ngIf="managerForm.get(requirmentsFor[1])?.errors?.['containNumber']">
@@ -52,7 +52,7 @@
 		<div class="actions">
 			<button type="button"  mat-dialog-close="false"  mat-raised-button>Cancel</button>
 			<button [disabled]="!managerForm.valid"   type="submit" mat-raised-button color="primary" >
-				Add
+				{{actionBtn}}
 			</button>
 			</div>
 	</form>

@@ -24,11 +24,6 @@ export class AppService {
 			res => {
 				const source = res.body;
 				if (source) {
-					console.log({
-						message: "Emp list from data subject",
-						source
-					});
-					
 					this.dataSubject.next(source)
 					this.store.dispatch(new SaveEmp(source))
 				}
