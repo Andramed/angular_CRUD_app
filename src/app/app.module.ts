@@ -47,7 +47,8 @@ const routes: Routes = [
 	{path: 'settings', component: SettingsComponent},
 	{path: 'employee', component: EmployeeComponent},
 	{path: 'manager', component: ManagersComponent},
-	{path: "signin", component: FormAuthComponent}
+	{path: "signin", component: FormAuthComponent},
+	
 ]
 
 @NgModule({

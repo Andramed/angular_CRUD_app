@@ -1,1 +1,18 @@
-<p>bread-crumb works!</p>
+
+<ul class="wrapper">
+	<li> 
+		<a
+			[routerLink]="['/'+previousUrl]" routerLinkActive="router-link-active" >
+			{{previousUrl}} 
+		</a>
+	</li>
+	<li *ngIf="previousUrl !== currentUrl"> 
+		<a 
+			[routerLink]="['/'+currentUrl]" routerLinkActive="router-link-active" color="primary" >
+			{{currentUrl}} 
+		</a>
+	</li>
+</ul>
+	
+	
+
