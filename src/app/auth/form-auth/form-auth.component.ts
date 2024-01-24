@@ -20,7 +20,8 @@ import { Router } from '@angular/router';
 })
 export class FormAuthComponent {
 	signInForm!: FormGroup;
-	signUp!: boolean
+	signUp!: boolean;
+	loginError!: string
 	constructor(
 		private _formBuilder: FormBuilder,
 		private _signInService: SignInService,
@@ -60,16 +61,22 @@ export class FormAuthComponent {
 
 							});
 							this.route.navigate(['/home'])
-							// this._dialogRef.close();
+							
 						} 
 					}
 				},
-				error(err) {
-					console.error(err);
-					
-				},
+				error: (err) => {
+					if (err.error.status) {
+						this.loginError = "Invalid email or password"
+					} else {
+						this.loginError = "Server error "
+					}
+				}
 			})
-	
+	}
+
+	reloadPage() {
+		location.reload()
 	}
 }
 

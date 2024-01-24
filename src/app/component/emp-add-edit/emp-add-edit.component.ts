@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
 
 import { AppService } from '../../services/App.service'
@@ -20,7 +20,8 @@ export class EmpAddEditComponent implements OnInit {
 	managerId!: number | undefined;
 	managerEmail: string | undefined;
 	userRole: string | undefined
-	requirmentsFor!: [string, string]
+	requirmentsFor!: [string, string];
+	passwordRequirments: boolean = true
 	constructor(
 			private _formBuilder: FormBuilder,
 			private _empService: EmployeeService,
@@ -31,11 +32,22 @@ export class EmpAddEditComponent implements OnInit {
 
 
 		){
+
+
 		this.empForm = this._formBuilder.group({
 			firstName: ['', [Validators.required, this.validator.firstNameValidator()]],
 			lastName: ['', [Validators.required, this.validator.firstNameValidator()]],
 			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required, this.validator.passwordValidator()]],
+			password: ['', 
+				(control: AbstractControl ) => {
+					const value = control.value;
+					const isDataPresent = !!this.data;
+
+					return  value && value.trim().length > 0 ?
+					this.validator.passwordValidator()(control)
+					:null;
+				} 
+			],
 		})
 	}
 
@@ -47,6 +59,7 @@ export class EmpAddEditComponent implements OnInit {
 	}
 
 	switcherSaveOrUpdate() {
+
 		this.data ?  this.editUser(this.data) : this.saveNewEmp();
 		;
 		

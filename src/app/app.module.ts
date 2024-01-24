@@ -38,17 +38,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { ManagersState } from './services/storeNgxs/states/managers.state';
+import { AuthGuard } from './guards/auth.guard';
+import { LOGIN_ROUTE } from './constants';
 
 
 const routes: Routes = [
-	{path: 'home', component: DashboardsComponent},
-	{path: 'bookmark', component: BookmarkComponent},
-	{path: 'settings', component: SettingsComponent},
-	{path: 'settings', component: SettingsComponent},
-	{path: 'employee', component: EmployeeComponent},
-	{path: 'manager', component: ManagersComponent},
-	{path: "signin", component: FormAuthComponent},
+	{path: "", redirectTo: `/home`, pathMatch: 'full'},
+	{path: 'home', component: DashboardsComponent, canActivate: [AuthGuard]}, //canActivate: [AuthGuard]
+	{path: 'bookmark', component: BookmarkComponent, canActivate: [AuthGuard]},
+	{path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+	{path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+	{path: 'employee', component: EmployeeComponent, canActivate: [AuthGuard]},
+	{path: 'manager', component: ManagersComponent, canActivate: [AuthGuard]},
+	{path: "signin", component: FormAuthComponent },
 	
+
 ]
 
 @NgModule({
@@ -100,6 +104,7 @@ const routes: Routes = [
 			useClass: InterceptorService,
 			multi: true 
 		},
+		
 		
 	],
 	bootstrap: [AppComponent], 

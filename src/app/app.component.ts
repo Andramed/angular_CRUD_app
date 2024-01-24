@@ -56,20 +56,7 @@ export class AppComponent implements OnInit {
 	
 
 	ngOnInit(){
-		const tokenPresent = this.checkIfTokenExist();
-		let isExpired:boolean = true
-		console.log(this.isAuthorized);
-		if (tokenPresent) {
-			isExpired = this.checkIfTokenIsExpired();
-			if (!isExpired) {
-				this.userService.authorize("tokenPresent")
-				this.route.navigate(['/home'])
-			} else {
-				this.route.navigate(['/signin'])
-			}
-			} else {
-				this.route.navigate(['/signin'])
-			}
+		
 		
 		this.userLogedNgxs$.subscribe({
 			next: (user) => {

@@ -43,7 +43,7 @@ export class DialogWindowAddManagerComponent implements OnInit{
 			firstName: ['', [Validators.required, this.validator.firstNameValidator()]],
 			lastName: ['', [Validators.required, this.validator.firstNameValidator()]],
 			email: ['', [Validators.required, Validators.email]], 
-			password: ['', this.passwordRequire?  [Validators.required, this.validator.passwordValidator()] : []] //(control: AbstractControl) => this.passwordValidator(control)
+			password: ['', this.passwordRequire?  [Validators.required, this.validator.passwordValidator()] : []] 
 		});
 
 	}

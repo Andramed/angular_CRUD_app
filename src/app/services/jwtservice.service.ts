@@ -83,6 +83,8 @@ export class JWTServiceService {
 		  map(expireTime => {
 			const currentTime = Math.floor(Date.now() / 1000);
 			if (expireTime && typeof expireTime === 'number') {
+				console.log(currentTime >= expireTime);
+				
 			  return currentTime >= expireTime;
 			} else {
 			  return true;

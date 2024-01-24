@@ -1,22 +1,27 @@
-<section class="auth-form">
-	<div class="container-header">
-		<h3>Sign in in your acaunt</h3>
-	</div>
-	<form [formGroup]="signInForm">
-		<mat-form-field appearance="outline">
-			<mat-label>Email</mat-label>
-			<input formControlName="email" matInput type="email" placeholder="examplae@email.com">
-		</mat-form-field>
-		<mat-form-field appearance="outline">
-			<mat-label>Password</mat-label>
-			<input matInput type="password" formControlName="password">
-		</mat-form-field>
+<div class="wrapper">
+	<section class="auth-form">
+		<div class="container-header">
+			<h3>Sign in in your acaunt</h3>
+		</div>
+		<form [formGroup]="signInForm">
+			<mat-form-field appearance="outline">
+				<mat-label>Email</mat-label>
+				<input formControlName="email" matInput type="email" placeholder="examplae@email.com">
+			</mat-form-field>
+			<mat-form-field appearance="outline">
+				<mat-label>Password</mat-label>
+				<input matInput type="password" formControlName="password">
+			</mat-form-field>
+		
+		</form>
+		<div class="error" *ngIf="loginError">
+			{{loginError}} please <a (click)="reloadPage()"><span class="reload">reload</span></a> page
+		</div>
+		<div mat-dialog-actions class="actions">
+			<button (click)="submitForm()" type="submit" mat-raised-button color="primary" >
+				Sign In
+			</button>
+		</div>
 	
-	</form>
-	<div mat-dialog-actions class="actions">
-		<button (click)="submitForm()" type="submit" mat-raised-button color="primary" >
-			Sign In
-		</button>
-	</div>
-
-</section>
+	</section>
+</div>
