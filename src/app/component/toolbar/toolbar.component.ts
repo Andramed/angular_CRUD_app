@@ -39,7 +39,7 @@ export class ToolbarComponent implements OnInit{
 				});
 				if (user) {
 					if (!user.firtsName && !user.lastName) {
-						this.route.navigate(['/settings'])
+						// this.route.navigate(['/settings'])
 
 					} 
 					this.loggedUser = {

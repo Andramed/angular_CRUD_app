@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { GuardService } from '../services/guard.service';
 import { LocalStoarageService } from '../services/local-stoarage.service';
 import { catchError, map, switchMap } from 'rxjs/operators'; // Corectare: înlocuirea importului pentru operatori RxJS
-import { of } from 'rxjs'; // Corectare: Adăugarea importului pentru operatorul 'of'
+import { Observable, of } from 'rxjs'; // Corectare: Adăugarea importului pentru operatorul 'of'
 import { Store } from '@ngxs/store';
 import { RemoveEmp } from '../services/storeNgxs/actions/saveEmp.actions';
 import { ClearState } from '../services/storeNgxs/actions/saveDecodedToken.actions';
@@ -31,13 +31,15 @@ export const AuthGuard: CanActivateFn = (route, state) => {
 			router.navigate(['/signin']);
 
 			return of(false); 
-		  } else {
-		
+		  } 
+		  else {
+			
 			return guardService.validateToken();
 		  }
 		}),
 		catchError(() => of(false)) 
 	  );
+		return true
 	}
   };
   
