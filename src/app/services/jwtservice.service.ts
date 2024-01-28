@@ -83,10 +83,12 @@ export class JWTServiceService {
 		  map(expireTime => {
 			const currentTime = Math.floor(Date.now() / 1000);
 			if (expireTime && typeof expireTime === 'number') {
-				console.log(currentTime >= expireTime);
+				console.log(currentTime >= expireTime, "Toke expirat");
 				
 			  return currentTime >= expireTime;
 			} else {
+				console.log("Token ne expirat coninuam navigarea");
+				
 			  return true;
 			}
 		  })
